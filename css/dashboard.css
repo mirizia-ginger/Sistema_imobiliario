@@ -1,0 +1,423 @@
+/* =========================================================================
+   INTAKA VILLAGE — dashboard.css
+   Shell de aplicação partilhado por proprietario.html e admin.html.
+   Usa as variáveis de marca definidas em css/style.css (deve ser
+   carregado antes deste ficheiro).
+   ========================================================================= */
+
+body.app{
+  background: var(--creme);
+  min-height: 100vh;
+}
+
+.app-shell{
+  display: flex;
+  min-height: 100vh;
+}
+
+/* ---------------------------------------------------------------------
+   SIDEBAR
+   --------------------------------------------------------------------- */
+.app-sidebar{
+  width: 264px;
+  flex-shrink: 0;
+  background: var(--verde-profundo);
+  color: rgba(255,255,255,.82);
+  padding: 1.8rem 1.3rem;
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  z-index: 200;
+  transition: transform var(--transicao);
+}
+
+.app-sidebar .logo{
+  color: var(--branco);
+  margin-bottom: .3rem;
+}
+.app-sidebar-selo{
+  font-size: .7rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--terracota);
+  margin-bottom: 2.2rem;
+}
+
+.app-nav{
+  display: flex;
+  flex-direction: column;
+  gap: .35rem;
+  margin-bottom: auto;
+}
+.app-nav-item{
+  display: flex;
+  align-items: center;
+  gap: .8rem;
+  padding: .8rem .9rem;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: .92rem;
+  color: rgba(255,255,255,.75);
+  transition: all var(--transicao);
+  text-align: left;
+  width: 100%;
+}
+.app-nav-item svg{ width: 19px; height: 19px; flex-shrink: 0; }
+.app-nav-item .contagem{
+  margin-left: auto;
+  background: rgba(255,255,255,.16);
+  color: var(--branco);
+  font-size: .72rem;
+  font-weight: 700;
+  padding: .12rem .5rem;
+  border-radius: 999px;
+}
+.app-nav-item:hover{ background: rgba(255,255,255,.08); color: var(--branco); }
+.app-nav-item.ativo{ background: var(--branco); color: var(--verde-profundo); }
+.app-nav-item.ativo .contagem{ background: var(--creme-2); color: var(--verde-profundo); }
+
+.app-sidebar-rodape{
+  border-top: 1px solid rgba(255,255,255,.14);
+  padding-top: 1.2rem;
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: .3rem;
+}
+.app-sidebar-rodape a{
+  display: flex;
+  align-items: center;
+  gap: .7rem;
+  padding: .65rem .9rem;
+  border-radius: 10px;
+  font-size: .86rem;
+  font-weight: 600;
+  color: rgba(255,255,255,.68);
+  transition: all var(--transicao);
+}
+.app-sidebar-rodape a:hover{ background: rgba(255,255,255,.08); color: var(--branco); }
+.app-sidebar-rodape svg{ width: 17px; height: 17px; }
+
+.sidebar-toggle, .sidebar-fechar{ display: none; }
+
+.sidebar-overlay{
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(15,26,22,.5);
+  z-index: 190;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--transicao), visibility var(--transicao);
+}
+.sidebar-overlay.mostrar{ display: block; opacity: 1; visibility: visible; }
+
+/* ---------------------------------------------------------------------
+   ÁREA PRINCIPAL
+   --------------------------------------------------------------------- */
+.app-main{
+  flex: 1;
+  min-width: 0;
+}
+
+.app-topbar{
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(247,241,228,.92);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--linha);
+  padding: 1.3rem 2.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.app-topbar-titulo h1{ font-size: 1.5rem; }
+.app-topbar-titulo p{ font-size: .86rem; color: var(--carvao-suave); margin-top: .15rem; }
+
+.app-topbar-acoes{ display: flex; align-items: center; gap: 1rem; }
+.app-utilizador{
+  display: flex;
+  align-items: center;
+  gap: .7rem;
+  padding: .4rem .9rem .4rem .4rem;
+  background: var(--branco);
+  border-radius: 999px;
+  box-shadow: var(--sombra-suave);
+}
+.app-utilizador-avatar{
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  background: var(--terracota);
+  color: var(--branco);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700;
+  font-size: .82rem;
+}
+.app-utilizador span{ font-size: .84rem; font-weight: 700; color: var(--verde-profundo); }
+
+.app-conteudo{
+  padding: 2.2rem;
+}
+
+.app-secao{ display: none; }
+.app-secao.ativa{ display: block; animation: subir-fade 480ms cubic-bezier(.22,1,.36,1) both; }
+
+/* ---------------------------------------------------------------------
+   BANNER DE MODO DEMONSTRAÇÃO
+   --------------------------------------------------------------------- */
+.banner-demo{
+  display: none;
+  align-items: center;
+  gap: .8rem;
+  background: #FBE9DC;
+  border: 1px solid #EFC9A5;
+  color: #8A4A1E;
+  padding: .9rem 1.2rem;
+  border-radius: 14px;
+  font-size: .86rem;
+  font-weight: 600;
+  margin-bottom: 1.8rem;
+}
+.banner-demo.mostrar{ display: flex; }
+.banner-demo svg{ width: 19px; height: 19px; flex-shrink: 0; }
+
+/* ---------------------------------------------------------------------
+   KPIs
+   --------------------------------------------------------------------- */
+.kpi-grelha{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.2rem;
+  margin-bottom: 2.2rem;
+}
+.kpi-cartao{
+  background: var(--branco);
+  border-radius: 20px;
+  padding: 1.5rem;
+  box-shadow: var(--sombra-suave);
+  display: flex;
+  flex-direction: column;
+  gap: .6rem;
+}
+.kpi-cartao-topo{ display: flex; align-items: center; justify-content: space-between; }
+.kpi-icone{
+  width: 40px; height: 40px;
+  border-radius: 12px;
+  background: var(--creme-2);
+  color: var(--terracota-escuro);
+  display: flex; align-items: center; justify-content: center;
+}
+.kpi-icone svg{ width: 20px; height: 20px; }
+.kpi-cartao strong{
+  font-family: var(--fonte-display);
+  font-size: 2rem;
+  color: var(--verde-profundo);
+}
+.kpi-cartao span{ font-size: .84rem; color: var(--carvao-suave); font-weight: 600; }
+
+/* ---------------------------------------------------------------------
+   PAINÉIS
+   --------------------------------------------------------------------- */
+.painel{
+  background: var(--branco);
+  border-radius: 22px;
+  box-shadow: var(--sombra-suave);
+  margin-bottom: 2rem;
+  overflow: hidden;
+}
+.painel-cabecalho{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  padding: 1.5rem 1.7rem;
+  border-bottom: 1px solid var(--linha);
+}
+.painel-cabecalho h2{ font-size: 1.2rem; }
+.painel-cabecalho p{ font-size: .84rem; color: var(--carvao-suave); margin-top: .2rem; }
+
+/* ---------------------------------------------------------------------
+   TABELAS
+   --------------------------------------------------------------------- */
+.tabela-wrap{ overflow-x: auto; }
+.tabela{ width: 100%; border-collapse: collapse; min-width: 640px; }
+.tabela th{
+  text-align: left;
+  font-size: .72rem;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  color: var(--carvao-suave);
+  padding: .9rem 1.7rem;
+  background: var(--creme-2);
+  white-space: nowrap;
+}
+.tabela td{
+  padding: 1rem 1.7rem;
+  border-bottom: 1px solid var(--linha);
+  font-size: .9rem;
+  color: var(--carvao);
+  vertical-align: middle;
+}
+.tabela tbody tr:last-child td{ border-bottom: none; }
+.tabela tbody tr:hover{ background: rgba(226,103,63,.04); }
+
+.tabela-imovel{ display: flex; align-items: center; gap: .8rem; }
+.tabela-imovel img{ width: 52px; height: 52px; border-radius: 10px; object-fit: cover; flex-shrink: 0; }
+.tabela-imovel strong{ display: block; color: var(--verde-profundo); font-size: .9rem; }
+.tabela-imovel span{ font-size: .78rem; color: var(--carvao-suave); }
+
+.badge{
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  padding: .32rem .75rem;
+  border-radius: 999px;
+  font-size: .74rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.badge::before{ content:""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+.badge--verde{ background: #E4EFE3; color: #2E7D32; }
+.badge--laranja{ background: #FBE9DC; color: #B5541E; }
+.badge--vermelho{ background: #FBE0DC; color: #C13B24; }
+.badge--cinza{ background: #EDEBE6; color: #6B665C; }
+.badge--azul{ background: #E1EAF6; color: #2B5C9E; }
+
+.select-inline{
+  border: 1.5px solid var(--linha);
+  border-radius: 10px;
+  padding: .4rem .6rem;
+  font-size: .82rem;
+  font-weight: 600;
+  color: var(--verde-profundo);
+  background: var(--branco);
+}
+
+.tabela-acoes{ display: flex; align-items: center; gap: .4rem; }
+.btn-icone{
+  width: 34px; height: 34px;
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--carvao-suave);
+  background: var(--creme-2);
+  transition: all var(--transicao);
+}
+.btn-icone svg{ width: 16px; height: 16px; }
+.btn-icone:hover{ background: var(--verde-profundo); color: var(--branco); }
+.btn-icone--perigo:hover{ background: #C13B24; color: var(--branco); }
+
+.tabela-vazio{
+  padding: 3rem 1.5rem;
+  text-align: center;
+  color: var(--carvao-suave);
+  font-size: .9rem;
+  display: none;
+}
+.tabela-vazio.mostrar{ display: block; }
+
+/* ---------------------------------------------------------------------
+   FORMULÁRIO DE ANÚNCIO (modal maior, 2 colunas)
+   --------------------------------------------------------------------- */
+.modal--largo{ width: min(760px, 100%); }
+.form-grelha-2{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 1rem;
+}
+.form-grelha-2 .form-grupo--full{ grid-column: 1 / -1; }
+
+.checkbox-linha{
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  font-size: .88rem;
+  font-weight: 600;
+  color: var(--verde-profundo);
+  margin-bottom: 1.2rem;
+}
+.checkbox-linha input{ width: 17px; height: 17px; accent-color: var(--terracota); }
+
+/* ---------------------------------------------------------------------
+   TOAST DE FEEDBACK
+   --------------------------------------------------------------------- */
+.toast{
+  position: fixed;
+  bottom: 1.8rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: var(--verde-profundo);
+  color: var(--branco);
+  padding: .9rem 1.5rem;
+  border-radius: 999px;
+  font-size: .88rem;
+  font-weight: 600;
+  box-shadow: var(--sombra-forte);
+  z-index: 3000;
+  opacity: 0;
+  visibility: hidden;
+  transition: all var(--transicao);
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+}
+.toast.mostrar{ opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
+.toast.toast--erro{ background: #C13B24; }
+.toast svg{ width: 17px; height: 17px; flex-shrink: 0; }
+
+/* ---------------------------------------------------------------------
+   RESPONSIVIDADE
+   --------------------------------------------------------------------- */
+@media (max-width: 1180px){
+  .kpi-grelha{ grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 960px){
+  .app-sidebar{
+    position: fixed;
+    inset-block: 0;
+    left: 0;
+    transform: translateX(-100%);
+    box-shadow: var(--sombra-forte);
+  }
+  .app-sidebar.aberto{ transform: translateX(0); }
+  .sidebar-toggle{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px; height: 42px;
+    border-radius: 10px;
+    background: var(--branco);
+    box-shadow: var(--sombra-suave);
+    color: var(--verde-profundo);
+  }
+  .sidebar-toggle svg{ width: 20px; height: 20px; }
+  .sidebar-fechar{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    background: rgba(255,255,255,.1);
+    color: var(--branco);
+    align-self: flex-end;
+    margin-bottom: 1rem;
+  }
+  .sidebar-fechar svg{ width: 16px; height: 16px; }
+  .app-topbar{ padding: 1.1rem 1.4rem; }
+  .app-conteudo{ padding: 1.4rem; }
+  .app-utilizador span:not(.app-utilizador-avatar){ display: none; }
+}
+
+@media (max-width: 620px){
+  .kpi-grelha{ grid-template-columns: 1fr 1fr; }
+  .app-topbar-titulo h1{ font-size: 1.2rem; }
+  .form-grelha-2{ grid-template-columns: 1fr; }
+  .painel-cabecalho{ flex-direction: column; align-items: flex-start; }
+}
